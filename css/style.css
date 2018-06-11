@@ -1,0 +1,1 @@
+.header{min-height:450px;background:lightgrey}.header .main-navigation{display:flex;background:lightgrey;max-width:1200px;margin:auto}.header .main-navigation ul{display:flex;justify-content:flex-end}.header .main-navigation ul li{list-style-type:none}.header .main-navigation ul li a{padding:20px;color:#fff}

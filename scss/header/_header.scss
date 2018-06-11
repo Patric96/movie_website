@@ -1,0 +1,21 @@
+.header {
+  min-height: 450px;
+  background: lightgrey;
+  .main-navigation {
+    display: flex;
+    background: lightgrey;
+    max-width: 1200px;
+    margin:auto;
+    ul {
+      display: flex;
+      justify-content: flex-end;
+      li {
+        list-style-type: none;
+        a {
+          padding: 20px;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

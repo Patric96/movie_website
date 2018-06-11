@@ -7,6 +7,8 @@ var uglify = require ("gulp-uglify");
 var rename = require ("gulp-rename");
 var sass = require ("gulp-sass");
 var sourcemaps = require ("gulp-sourcemaps");
+var autoprefix = require ("gulp-autoprefixer");
+var uglifycss = require('gulp-uglifycss');
 
 //Gulp needs a task, so let's create one | 1. The first parameter (in this case "concatScripts" is the task's name)
 //Start the ConcateScripts Task
@@ -29,21 +31,34 @@ gulp.task("minifyScripts",["concatScripts"], function () {
     .pipe(gulp.dest("js"))
 });
 
+
+
 //Start the Sass to CSS Task
 gulp.task("compileSass", function () {
   return gulp.src("scss/style.scss")
   //Define the source map plugin
     .pipe(sourcemaps.init())
-      .pipe(sass())
+    .pipe(sass())
     .pipe(sourcemaps.write("./"))
+    .pipe(uglifycss())
     .pipe(gulp.dest("css"))
 });
+
+gulp.task('autoprefix', ["compileSass"], () =>
+    gulp.src('css/style.css')
+        .pipe(autoprefix({
+            browsers: ['last 99 versions'],
+            cascade: false
+    }))
+    .pipe(rename("style.min.css"))
+    .pipe(gulp.dest('css'))
+);
 
 gulp.task("watchSass", function (){
   gulp.watch("scss/**/*.scss", ["compileSass"])
 })
 
 //Give the first Parameter the name "default" to define it as a gulp default task | In this case, we add a dependencie ("concatScripts"),that runs before the default task
-gulp.task("build", ["minifyScripts", "compileSass"], function () {
+gulp.task("build", ["minifyScripts", "autoprefix"], function () {
   console.log("I am a default task")
 });
