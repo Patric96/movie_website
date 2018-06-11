@@ -55,7 +55,7 @@ gulp.task('autoprefix', ["compileSass"], () =>
 );
 
 gulp.task("watchSass", function (){
-  gulp.watch("scss/**/*.scss", ["compileSass"])
+  gulp.watch("scss/**/*.scss", ["autoprefix"])
 })
 
 //Give the first Parameter the name "default" to define it as a gulp default task | In this case, we add a dependencie ("concatScripts"),that runs before the default task
